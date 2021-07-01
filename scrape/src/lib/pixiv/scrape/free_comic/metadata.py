@@ -38,8 +38,8 @@ class ScrapeMetadata():
     self,
   ) -> typing.NoReturn:
     classes = (
-      'jsx-2099034544',
       'jsx-173046405',
+      'jsx-2099034544',
       'jsx-2154117046',
     )
     self.__meta = Metadata(
