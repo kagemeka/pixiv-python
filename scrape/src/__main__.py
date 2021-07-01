@@ -28,6 +28,7 @@ import (
 )
 
 
+
 def create_driver(
 ) -> WebDriver:
   options = FirefoxOptions()
@@ -49,6 +50,7 @@ import (
   # ScrapeFreeComic,
   # FreeComic,
   ScrapeRankedFreeComics,
+  RankedFreeComic,
 )
 
 import dataclasses
@@ -56,6 +58,28 @@ import typing
 
 import requests
 import bs4 
+import pandas as pd
+
+
+
+
+class RankedFreeComicToDF():
+
+  def __call__(
+    self,
+    comic: RankedFreeComic,
+  ) -> pd.DataFrame:
+    self.__comic = comic
+    self.__convert()
+    ...
+
+  
+  def __convert(
+    self,
+  ) -> typing.NoReturn:
+    comic = self.__comic
+    print(comic)
+
 
 
   
@@ -67,10 +91,12 @@ def main():
   scrape = (
     ScrapeRankedFreeComics()
   )
+  to_df = RankedFreeComicToDF()
   for comic in scrape(driver):
     print(comic)
+    print(to_df(comic))
     print()
-    # break 
+    break 
   
   driver.close()
 
@@ -81,11 +107,17 @@ if __name__ == '__main__':
 
 
 '''TODO
-url -> anime_id
-author -> author_text
-follower -> follower_cnt
-rank
+comic_id
+title
+author_text
+magagine
+overview
 ranked_field
-update -> latest_update
+rank
+latest_update
+oldest_update
+episode_cnt
+
 
 ''' 
+

@@ -28,7 +28,7 @@ import bs4
 class RankedFreeComic(
   FreeComic,
 ):
-  category: str
+  ranked_field: str
   rank: int
 
 
@@ -37,10 +37,10 @@ class ScrapeRankedFreeComic():
   
   def __call__(
     self,
-    category: str,
+    field: str,
     section: bs4.element.Tag,
   ) -> RankedFreeComic:
-    self.__category = category
+    self.__field = field 
     self.__section = section
     self.__scrape()
     return self.__comic
@@ -83,12 +83,12 @@ class ScrapeRankedFreeComic():
       comic.summary,
       comic.tags,
       comic.episode,
-      self.__category,
+      self.__field,
       self.__rank,
     )
     self.__comic = comic
       
-      
+
 
 class ScrapeRankedFreeComics():
   
@@ -103,7 +103,7 @@ class ScrapeRankedFreeComics():
     return self.__scrape()
 
 
-  def __find_categories(
+  def __find_fields(
     self,
   ) -> typing.NoReturn:
     driver = self.__driver
@@ -113,7 +113,7 @@ class ScrapeRankedFreeComics():
         'Menues_menu__p0ouK'
       ),
     )
-    self.__categories = ls
+    self.__fields = ls
   
 
   def __get_sections(
@@ -149,14 +149,14 @@ class ScrapeRankedFreeComics():
   ) -> typing.Iterator[
     RankedFreeComic
   ]:
-    self.__find_categories()
+    self.__find_fields()
     f = ScrapeRankedFreeComic()
-    categs = self.__categories
-    for category in categs:
-      category.click()
+    fields = self.__fields
+    for field in fields:
+      field.click()
       s = self.__get_sections()
       for section in s:
         yield f(
-          category.text,
+          field.text,
           section,
         )
