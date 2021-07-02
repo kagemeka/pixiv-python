@@ -18,13 +18,8 @@ from \
 import (
   WebDriver,
 )
-import re
-
-from \
-  selenium.webdriver \
-  .common.by \
-import (
-  By,
+from lib.adam import (
+  MakeAdamDFs,
 )
 
 
@@ -42,82 +37,19 @@ def create_driver(
   return driver
 
 
-
-from \
-  lib.pixiv.scrape \
-  .ranked_free_comic \
-import (
-  # ScrapeFreeComic,
-  # FreeComic,
-  ScrapeRankedFreeComics,
-  RankedFreeComic,
-)
-
-import dataclasses
-import typing
-
-import requests
-import bs4 
-import pandas as pd
-
-
-
-
-class RankedFreeComicToDF():
-
-  def __call__(
-    self,
-    comic: RankedFreeComic,
-  ) -> pd.DataFrame:
-    self.__comic = comic
-    self.__convert()
-    ...
-
-  
-  def __convert(
-    self,
-  ) -> typing.NoReturn:
-    comic = self.__comic
-    print(comic)
-
-
-
   
 def main():
   site_url ="https://comic.pixiv.net/"
 
+  import time
+  s = time.time()
   driver = create_driver()
 
-  scrape = (
-    ScrapeRankedFreeComics()
-  )
-  to_df = RankedFreeComicToDF()
-  for comic in scrape(driver):
-    print(comic)
-    print(to_df(comic))
-    print()
-    break 
-  
+  MakeAdamDFs(driver)()
   driver.close()
+  print(time.time() - s)
 
  
 
 if __name__ == '__main__':
   main()
-
-
-'''TODO
-comic_id
-title
-author_text
-magagine
-overview
-ranked_field
-rank
-latest_update
-oldest_update
-episode_cnt
-
-
-''' 
-
