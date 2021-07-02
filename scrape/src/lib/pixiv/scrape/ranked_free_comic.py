@@ -94,12 +94,9 @@ class ScrapeRankedFreeComics():
   
   def __call__(
     self,
-    driver: WebDriver,
   ) -> typing.Iterator[
     RankedFreeComic
   ]:
-    driver.get(self.__url)
-    self.__driver = driver
     return self.__scrape()
 
 
@@ -137,11 +134,14 @@ class ScrapeRankedFreeComics():
 
   def __init__(
     self,
+    driver: WebDriver,
   ) -> typing.NoReturn:
-    self.__url = (
+    url = (
       'https://comic.pixiv.net'
       '/rankings'
     )
+    driver.get(url)
+    self.__driver = driver
 
 
   def __scrape(
