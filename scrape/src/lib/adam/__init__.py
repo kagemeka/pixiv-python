@@ -183,7 +183,7 @@ class MakeAdamDFs():
     self.__dt = dt 
     date = dt.date()
     self.__save_dir = (
-      f'/tmp/{date}/'
+      f'/tmp/'
     )
     self.__upload_dir = (
       f'pixiv/{date}/'
