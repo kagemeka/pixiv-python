@@ -13,14 +13,29 @@ import (
 import dataclasses
 import typing
 import bs4 
+from datetime import (
+  datetime,
+)
+from tqdm import (
+  tqdm,
+)
 
 
 
 @dataclasses.dataclass
 class FreeRankedComic():
-  comid_id: int
+  comic_id: int
   field: str
   rank: int
+
+
+
+@dataclasses.dataclass
+class Ranking():
+  datetime: datetime
+  comics: typing.List[
+    FreeRankedComic
+  ]
 
 
 
@@ -78,11 +93,9 @@ class ScrapeFreeRanking():
   
   def __call__(
     self,
-  ) -> typing.List[
-    FreeRankedComic
-  ]:
+  ) -> Ranking:
     self.__scrape()
-    return self.__comics
+    return self.__ranking
   
 
   def __find_fields(
@@ -137,7 +150,8 @@ class ScrapeFreeRanking():
     self.__find_fields()
     fn = ScrapeComic()
     ls = []
-    for field in self.__fields:
+    fields = self.__fields
+    for field in tqdm(fields):
       field.click()
       s = self.__get_sections()
       for section in s:
@@ -145,4 +159,7 @@ class ScrapeFreeRanking():
           field.text,
           section,
         ))
-    self.__comics = ls 
+    self.__ranking = Ranking(
+      datetime.now(),
+      ls,
+    )

@@ -1,27 +1,23 @@
-from .metadata import (
-  ScrapeMetadata,
-  Metadata,
-)
-
-from .episode import (
-  ScrapeEpisode,
-  Episode,
-)
-
-from .tag import (
-  ScrapeTag,
-  Tag,
-)
-
-from .summary import (
-  ScrapeSummary,
-  Summary,
-)
-
 import dataclasses
 import typing
 import requests
 import bs4 
+from .metadata import (
+  ScrapeMetadata,
+  Metadata,
+)
+from .episode import (
+  ScrapeEpisode,
+  Episode,
+)
+from .tag import (
+  ScrapeTag,
+  Tag,
+)
+from .summary import (
+  ScrapeSummary,
+  Summary,
+)
 
 
 

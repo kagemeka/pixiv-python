@@ -70,8 +70,9 @@ def create_driver(
 import typing
 import dataclasses
 
-from lib.pixiv.scrape.free_ranking import (
+from lib.pixiv.scrape import (
   ScrapeFreeRanking,
+  ScrapeFreeComics,
 )
 
 
@@ -84,8 +85,14 @@ def main():
   scrape = ScrapeFreeRanking(
     driver,
   )
-  comics = scrape()
-  pprint(comics)
+  ranking = scrape()
+  scrape = ScrapeFreeComics()
+  ids = [
+    comic.comic_id
+    for comic in ranking.comics
+  ]
+  for comic in scrape(ids):
+    print(comic)
 
 
   # MakeAdamDFs(driver)()

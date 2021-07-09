@@ -4,6 +4,7 @@ import bs4
 import re
 
 
+
 @dataclasses.dataclass
 class Tag():
   name: str

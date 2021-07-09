@@ -1,5 +1,3 @@
-
-
 import dataclasses
 import typing
 import bs4 
@@ -14,8 +12,7 @@ class Metadata:
 
 
 
-class ScrapeMetadata():
-  
+class ScrapeMetadata(): 
   def __call__(
     self,
     soup: bs4.BeautifulSoup,
@@ -48,4 +45,3 @@ class ScrapeMetadata():
         for cls_ in classes
       ),
     )
-

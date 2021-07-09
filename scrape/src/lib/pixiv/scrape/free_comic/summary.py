@@ -1,5 +1,3 @@
-
-
 import dataclasses
 import typing
 import bs4 
@@ -22,11 +20,7 @@ class ScrapeSummary():
   ) -> Summary:
     self.__soup = soup
     self.__scrape()
-    return Summary(
-      self.__overview,
-      self.__follower_cnt,
-      self.__genres,
-    )
+    return self.__summary 
 
 
   def __get_overview(
@@ -45,11 +39,9 @@ class ScrapeSummary():
       class_='jsx-736239241',
     )
     self.__follower_cnt = int(
-      elm.text.replace(
-        ',', 
-        '',
-      ),
+      elm.text.replace(',', '')
     )
+
   
   def __get_genres(
     self,
@@ -71,4 +63,8 @@ class ScrapeSummary():
     self.__get_overview()
     self.__get_follower_cnt()
     self.__get_genres()
-
+    self.__summary = Summary(
+      self.__overview,
+      self.__follower_cnt,
+      self.__genres,
+    )
