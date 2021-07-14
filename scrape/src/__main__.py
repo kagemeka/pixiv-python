@@ -70,7 +70,7 @@ def create_driver(
 import typing
 import dataclasses
 
-from lib.pixiv.scrape import (
+from kgmk.pixiv.scrape import (
   ScrapeFreeRanking,
   ScrapeFreeComics,
 )
@@ -82,20 +82,20 @@ def main():
   import time
   s = time.time()
   driver = create_driver()
-  scrape = ScrapeFreeRanking(
-    driver,
-  )
-  ranking = scrape()
-  scrape = ScrapeFreeComics()
-  ids = [
-    comic.comic_id
-    for comic in ranking.comics
-  ]
-  for comic in scrape(ids):
-    print(comic)
+  # scrape = ScrapeFreeRanking(
+  #   driver,
+  # )
+  # ranking = scrape()
+  # scrape = ScrapeFreeComics()
+  # ids = [
+  #   comic.comic_id
+  #   for comic in ranking.comics
+  # ]
+  # for comic in scrape(ids):
+  #   print(comic)
 
 
-  # MakeAdamDFs(driver)()
+  MakeAdamDFs(driver)()
   driver.close()
   print(time.time() - s)
 

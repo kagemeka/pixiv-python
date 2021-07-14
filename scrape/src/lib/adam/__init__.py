@@ -7,7 +7,7 @@ import (
   WebDriver,
 )
 from \
-  lib.pixiv.scrape \
+  kgmk.pixiv.scrape \
   .ranked_free_comic \
 import (
   ScrapeRankedFreeComics,
@@ -171,7 +171,7 @@ class MakeAdamDFs():
     self.__make()
     self.__add_timestamp()
     self.__store()
-    self.__upload()
+    # self.__upload()
   
 
   def __init__(
