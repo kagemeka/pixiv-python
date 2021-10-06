@@ -5,66 +5,41 @@ from selenium.webdriver import (
   Firefox,
   FirefoxOptions,
 )
-from \
-  selenium.webdriver.remote \
-  .webdriver \
-import (
-  WebDriver,
-)
-from lib.adam import (
-  MakeAdamDFs,
-)
-from pprint import (
-  pprint,
-)
+from selenium.webdriver.remote.webdriver import WebDriver
+from lib.adam import MakeAdamDFs
+import pprint
 
-
-
-# def create_driver(
-# ) -> WebDriver:
-#   opt = ChromeOptions()
-#   opts = [
-#     '--no-sandbox',
-#     '--single-process',
-#     '--disable-dev-shm-usage',
-#     '--homedir=/tmp',
-#   ]
-#   opt.headless = True
-#   for o in opts:
-#     opt.add_argument(o)
-#   opt.binary_location = (
-#     '/opt/headless-chromium'
-#   )
-#   driver = Chrome(
-#     '/opt/chromedriver',
-#     options=opt,
-#   )
-#   return driver
-
-
-# def lambda_handler(
-#   event, 
-#   context,
-# ):
-#   driver = create_driver()
-#   MakeAdamDFs(driver)()
-#   driver.close()
-#   return {
-#     "statusCode": 200,
-#     "body": 'success',
-#   }
 
 
 def create_driver(
 ) -> WebDriver:
+  opt = ChromeOptions()
+  opts = [
+    '--no-sandbox',
+    '--single-process',
+    '--disable-dev-shm-usage',
+    '--homedir=/tmp',
+  ]
+  opt.headless = True
+  for o in opts: opt.add_argument(o)
+  opt.binary_location = '/opt/headless-chromium'
+  return Chrome('/opt/chromedriver', options=opt)
+
+
+def lambda_handler(event, context):
+  driver = create_driver()
+  MakeAdamDFs(driver)()
+  driver.close()
+  return {
+    "statusCode": 200,
+    "body": 'success',
+  }
+
+
+def create_driver() -> WebDriver:
   options = FirefoxOptions()
   options.headless = True
-  driver = Firefox(
-    options=options,
-  )
-  return driver
-
-
+  return Firefox(options=options)
 
 
 import typing
