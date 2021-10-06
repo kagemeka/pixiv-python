@@ -45,5 +45,5 @@ def test_scrape_free_comic() -> typing.NoReturn:
 
 
 if __name__ == '__main__':
-  # test_scrape_free_ranking()
-  test_scrape_free_comic()
+  test_scrape_free_ranking()
+  # test_scrape_free_comic()

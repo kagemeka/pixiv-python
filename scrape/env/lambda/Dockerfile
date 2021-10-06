@@ -17,8 +17,7 @@ RUN \
 COPY env/py/requirements.txt .
 RUN pip install -r requirements.txt
 
-# COPY __main__.py .
-COPY src/__main__.py .
+COPY src/lambda.py .
 COPY src/lib /opt/python/lib
 
-CMD ["__main__.lambda_handler"]
+CMD ["lambda.lambda_handler"]
