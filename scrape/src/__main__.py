@@ -1,39 +1,14 @@
 import time
 from selenium.webdriver import (
-  Chrome,
-  ChromeOptions,
   Firefox,
   FirefoxOptions,
 )
 from selenium.webdriver.remote.webdriver import WebDriver
-from lib.adam import MakeAdamDFs
-import pprint
-
-
-
-def create_driver(
-) -> WebDriver:
-  opt = ChromeOptions()
-  opts = [
-    '--no-sandbox',
-    '--single-process',
-    '--disable-dev-shm-usage',
-    '--homedir=/tmp',
-  ]
-  opt.headless = True
-  for o in opts: opt.add_argument(o)
-  opt.binary_location = '/opt/headless-chromium'
-  return Chrome('/opt/chromedriver', options=opt)
-
-
-def lambda_handler(event, context):
-  driver = create_driver()
-  MakeAdamDFs(driver)()
-  driver.close()
-  return {
-    "statusCode": 200,
-    "body": 'success',
-  }
+import time
+from lib.adam import (
+  add_ranked_comics,
+  update_ranked_comics,
+)
 
 
 def create_driver() -> WebDriver:
@@ -42,36 +17,12 @@ def create_driver() -> WebDriver:
   return Firefox(options=options)
 
 
-import typing
-import dataclasses
-
-from kgmk.pixiv.scrape import (
-  ScrapeFreeRanking,
-  ScrapeFreeComics,
-)
-
-
 def main():
-  site_url ="https://comic.pixiv.net/"
-
-  import time
   s = time.time()
   driver = create_driver()
-  # scrape = ScrapeFreeRanking(
-  #   driver,
-  # )
-  # ranking = scrape()
-  # scrape = ScrapeFreeComics()
-  # ids = [
-  #   comic.comic_id
-  #   for comic in ranking.comics
-  # ]
-  # for comic in scrape(ids):
-  #   print(comic)
-
-
-  MakeAdamDFs(driver)()
+  add_ranked_comics(driver)
   driver.close()
+  update_ranked_comics()
   print(time.time() - s)
 
  
