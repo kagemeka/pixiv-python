@@ -55,16 +55,21 @@ def scrape_free_ranking(driver: WebDriver) -> Ranking:
   def find_fields() -> typing.List[WebElement]:
     return driver.find_elements(
       by=By.CLASS_NAME,
+      value='relative',
+    )[-1].find_elements(
+      by=By.CLASS_NAME,
       value='cursor-pointer',
     )
+    
 
   def get_items() -> typing.List[WebElement]:
     return driver.find_elements(
       by=By.CLASS_NAME,
       value='items-stretch',
     )
-   
+  
   ls = []
+  fields = find_fields()
   for field in tqdm.tqdm(find_fields()):
     field.click()
     for elm in get_items():
