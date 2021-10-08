@@ -32,6 +32,8 @@ def _store_to_s3(df: pd.DataFrame) -> typing.NoReturn:
   old_rank = pd.read_csv(save_path)
   df = pd.concat((old_rank, df), ignore_index=True)
   df['ranked_at'] = df['ranked_at'].astype(str)
+  df['rank'] = df['rank'].astype(int)
+  df['comic_id'] = df['comic_id'].astype(int)
   df.drop_duplicates(
     subset=['comic_id', 'field', 'rank', 'ranked_at'],
     keep='last',
