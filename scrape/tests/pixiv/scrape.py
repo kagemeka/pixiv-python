@@ -1,20 +1,12 @@
 import typing
 import sys 
-import time
-from selenium.webdriver import (
-  Chrome,
-  ChromeOptions,
-  Firefox,
-  FirefoxOptions,
-)
-from selenium.webdriver.remote.webdriver import WebDriver
+import selenium.webdriver
 
-def create_driver() -> WebDriver:
-  options = FirefoxOptions()
+
+def create_driver() -> selenium.webdriver.remote.webdriver.WebDriver:
+  options = selenium.webdriver.FirefoxOptions()
   options.headless = True
-  return Firefox(options=options)
-
-
+  return selenium.webdriver.Firefox(options=options)
 
 
 def set_globals() -> typing.NoReturn:
@@ -45,5 +37,5 @@ def test_scrape_free_comic() -> typing.NoReturn:
 
 
 if __name__ == '__main__':
-  test_scrape_free_ranking()
-  # test_scrape_free_comic()
+  # test_scrape_free_ranking()
+  test_scrape_free_comic()
