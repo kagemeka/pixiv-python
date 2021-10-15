@@ -1,7 +1,3 @@
-from lib.adam import (
-    add_ranked_comics,
-    update_ranked_comics,
-)
 import typing
 import sys
 import time
@@ -31,6 +27,15 @@ set_globals()
 sys.path.append(f'{root}/src')
 
 
+try:
+    from lib.adam import (
+        add_ranked_comics,
+        update_ranked_comics,
+    )
+except Exception:
+    pass
+
+
 def test_add_ranked_comic_ids() -> typing.NoReturn:
     driver = create_driver()
     add_ranked_comics(driver)
@@ -42,5 +47,5 @@ def test_update_ranked_comics() -> typing.NoReturn:
 
 
 if __name__ == '__main__':
-    # test_add_ranked_comic_ids()
+    test_add_ranked_comic_ids()
     test_update_ranked_comics()
