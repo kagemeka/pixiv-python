@@ -1,8 +1,5 @@
 import selenium.webdriver
-from lib.adam import (
-    add_ranked_comics,
-    update_ranked_comics,
-)
+import typing
 from lib import adam
 
 
@@ -24,9 +21,9 @@ def create_driver() -> selenium.webdriver.remote.webdriver.WebDriver:
 
 def lambda_handler(event, context) -> typing.NoReturn:
     driver = create_driver()
-    add_ranked_comics(driver)
+    adam.add_ranked_comics(driver)
     driver.close()
-    update_ranked_comics()
+    adam.update_ranked_comics()
     return {
         "statusCode": 200,
         "body": 'success',
