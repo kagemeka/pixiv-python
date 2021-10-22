@@ -22,26 +22,14 @@ class Ranking():
     comics: typing.List[FreeRankedComic]
 
 
-def __scrape_free_ranked_comic(
-    field: str,
-    element: WebElement,
-) -> FreeRankedComic:
+def __scrape_free_ranked_comic(field: str, element: WebElement) -> FreeRankedComic:
     def get_rank() -> int:
-        rank = element.find_element(
-            by=By.CLASS_NAME,
-            value='text-xs'
-        ).text
-        return int(rank)
+        return int(element.find_element(by=By.CLASS_NAME, value='text-xs').text)
 
     def get_comic_id() -> typing.NoReturn:
-        url = element.get_attribute('href')
-        return int(url.split('/')[-1])
+        return int(element.get_attribute('href').split('/')[-1])
 
-    return FreeRankedComic(
-        get_comic_id(),
-        field,
-        get_rank(),
-    )
+    return FreeRankedComic(get_comic_id(), field, get_rank())
 
 
 def scrape_free_ranking(driver: WebDriver) -> Ranking:
@@ -58,10 +46,7 @@ def scrape_free_ranking(driver: WebDriver) -> Ranking:
         )
 
     def get_items() -> typing.List[WebElement]:
-        return driver.find_elements(
-            by=By.CLASS_NAME,
-            value='items-stretch',
-        )
+        return driver.find_elements(by=By.CLASS_NAME, value='items-stretch')
 
     ls = []
     fields = find_fields()
