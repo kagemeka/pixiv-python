@@ -114,6 +114,7 @@ def scrape_free_comic(comic_id: int) -> typing.Optional[FreeComic]:
     response = requests.get(f'{BASE_URL}/{comic_id}')
     soup: bs4.BeautifulSoup = bs4.BeautifulSoup(response.content, 'html.parser')
     if soup.find(class_='error') is not None: return None
+    if 'お探しのページは見つかりませんでした。' in soup.text: return None
     return FreeComic(
         comic_id,
         _scrape_metadata(soup),

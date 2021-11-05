@@ -7,10 +7,9 @@ from selenium.webdriver import (
     Firefox,
     FirefoxOptions,
 )
-from selenium.webdriver.remote.webdriver import WebDriver
+import selenium.webdriver 
 
-
-def create_driver() -> WebDriver:
+def create_driver() -> selenium.webdriver.remote.webdriver.WebDriver:
     options = FirefoxOptions()
     options.headless = True
     return Firefox(options=options)
@@ -27,13 +26,11 @@ set_globals()
 sys.path.append(f'{root}/src')
 
 
-# try:
 from lib.adam import (
     add_ranked_comics,
     update_ranked_comics,
 )
-# except Exception:
-#     pass
+
 
 
 def test_add_ranked_comic_ids() -> typing.NoReturn:
