@@ -44,5 +44,5 @@ def test_update_ranked_comics() -> typing.NoReturn:
 
 
 if __name__ == '__main__':
-    # test_add_ranked_comic_ids()
+    test_add_ranked_comic_ids()
     test_update_ranked_comics()

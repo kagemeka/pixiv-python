@@ -44,7 +44,8 @@ class Summary():
 
 def _scrape_summary(soup: bs4.BeautifulSoup) -> Summary:
     def get_overview() -> str:
-        return soup.find(class_='jsx-3803037064').text
+        # return soup.find(class_='jsx-3803037064').text
+        return soup.find(class_='jsx-3215032718').text
 
     def get_follower_cnt() -> int:
         elm = soup.find('div', class_='my-16').find('div', class_='items-center')
@@ -110,6 +111,7 @@ class FreeComic():
 
 
 def scrape_free_comic(comic_id: int) -> typing.Optional[FreeComic]:
+    print(comic_id)
     BASE_URL = 'https://comic.pixiv.net/works/'
     response = requests.get(f'{BASE_URL}/{comic_id}')
     soup: bs4.BeautifulSoup = bs4.BeautifulSoup(response.content, 'html.parser')
@@ -126,7 +128,7 @@ def scrape_free_comic(comic_id: int) -> typing.Optional[FreeComic]:
 
 def scrape_free_comics(comic_ids: typing.List[int]) -> typing.Iterator[FreeComic]:
     for id_ in tqdm.tqdm(comic_ids):
-        print(id_)
+        # print(id_)
         comic = scrape_free_comic(id_)
         if comic is None: continue
         yield comic 
